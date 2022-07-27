@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+
+<context:component-scan base-package="com">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--这里使用的是mybatis自带的数据源，可以替换成别的数据源比如Druid等-->
+    <bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+        <property name="url" value="jdbc:mysql://localhost:3306/store?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT&amp;"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+    </bean>
+    <!--这个里面的数据源是一定要配置的，第二个配置的是xxMapper文件，用于和Dao接口绑定，还可以引入配置文件(驼峰，别名)-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!--扫瞄dao层接口-->
+    <mybatis:scan base-package="com.Dao"/>
+</beans>

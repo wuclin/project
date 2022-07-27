@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="feign-consumer-2222" />
+        <module name="api-gateway-3333" />
+        <module name="hystrix-customer-1112" />
+        <module name="ribbon-consumer-1111" />
+        <module name="eureka-provider-7003" />
+        <module name="eureka-provider-7002" />
+        <module name="eureka-server-8003" />
+        <module name="eureka-server-8002" />
+        <module name="eureka-server-8001" />
+        <module name="eureka-provider-7001" />
+        <module name="hystrix-dashboard-1114" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-gateway-1113" target="1.8" />
+      <module name="api-gateway-3333" target="1.8" />
+      <module name="eureka-provider-7001" target="1.8" />
+      <module name="eureka-provider-7002" target="1.8" />
+      <module name="eureka-provider-7003" target="1.8" />
+      <module name="eureka-server-8001" target="1.8" />
+      <module name="eureka-server-8002" target="1.8" />
+      <module name="eureka-server-8003" target="1.8" />
+      <module name="feign-consumer-2222" target="1.8" />
+      <module name="hystrix-customer-1112" target="1.8" />
+      <module name="hystrix-dashboard-1114" target="1.8" />
+      <module name="ribbon-consumer-1111" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway-1113" options="-parameters" />
+      <module name="api-gateway-3333" options="-parameters" />
+      <module name="eureka-provider-7001" options="-parameters" />
+      <module name="eureka-provider-7002" options="-parameters" />
+      <module name="eureka-provider-7003" options="-parameters" />
+      <module name="eureka-server-8001" options="-parameters" />
+      <module name="eureka-server-8002" options="-parameters" />
+      <module name="eureka-server-8003" options="-parameters" />
+      <module name="feign-consumer-2222" options="-parameters" />
+      <module name="hystrix-customer-1112" options="-parameters" />
+      <module name="hystrix-dashboard-1114" options="-parameters" />
+      <module name="ribbon-consumer-1111" options="-parameters" />
+    </option>
+  </component>
+</project>

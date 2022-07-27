@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/API/API.iml" filepath="$PROJECT_DIR$/API/API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/All/All.iml" filepath="$PROJECT_DIR$/All/All.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Offer.iml" filepath="$PROJECT_DIR$/Offer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/One2Ten/One2Ten.iml" filepath="$PROJECT_DIR$/One2Ten/One2Ten.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ten2Twenty/Ten2Twenty.iml" filepath="$PROJECT_DIR$/Ten2Twenty/Ten2Twenty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fourty2fifity/fourty2fifity.iml" filepath="$PROJECT_DIR$/fourty2fifity/fourty2fifity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/threety2fourty/threety2fourty.iml" filepath="$PROJECT_DIR$/threety2fourty/threety2fourty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/twenty2threety/twenty2threety.iml" filepath="$PROJECT_DIR$/twenty2threety/twenty2threety.iml" />
+    </modules>
+  </component>
+</project>

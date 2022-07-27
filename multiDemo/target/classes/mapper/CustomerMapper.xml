@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Dao.CustomerDao">
+    <select id="selectCustomer" resultType="com.enty.Customer">
+        select * from customer where id=#{id};
+    </select>
+
+    <insert id="insertCustomer" parameterType="com.enty.Customer" useGeneratedKeys="true" keyProperty="id">
+        insert into customer(username, pwd) values (#{username}, #{pwd});
+    </insert>
+
+    <insert id="txtest" >
+        insert into customer(username, pwd) values("txtes1","123");
+    </insert>
+
+    <insert id="test1">
+        insert into customer(username, pwd) select username, pwd from user;
+    </insert>
+
+
+    <select id="size" resultType="Integer">
+        select count(*) from customer;
+    </select>
+
+    <select id="t1" resultType="com.enty.Customer">
+        select * from customer limit #{offset}, #{size};
+    </select>
+
+    <select id="t11" resultType="com.enty.Customer">
+        select * from customer where id>=(select id from customer limit #{offset}, 1) limit #{size}
+    </select>
+
+    <select id="t12" resultType="com.enty.Customer">
+        select * from customer a join (select id from customer limit #{offset}, #{size}) b on a.id = b.id
+    </select>
+
+    <select id="t2" resultType="com.enty.Customer">
+        select * from customer;
+    </select>
+
+    <select id="t3" resultType="com.enty.Customer">
+        select * from customer;
+    </select>
+
+    <insert id="insertCustomer2" parameterType="java.util.List">
+        insert into user(id, username, pwd)
+        values
+        <foreach collection="list" item="c" separator=",">
+            (#{c.id}, #{c.username},#{c.pwd})
+        </foreach>
+    </insert>
+
+    <select id="test6" parameterType="com.enty.Customer">
+        select * from customer
+    </select>
+
+    <select id="checkDBRecord" resultType="com.enty.Customer">
+        select * from customer where id=#{id}
+    </select>
+
+
+</mapper>

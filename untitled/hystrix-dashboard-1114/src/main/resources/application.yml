@@ -1,0 +1,7 @@
+server:
+  port: 1114
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list:
+      - "localhost"

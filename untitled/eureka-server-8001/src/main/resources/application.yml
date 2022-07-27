@@ -1,0 +1,15 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: server-cluster
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://peer2:8002/eureka/,http://peer3:8003/eureka/
+  instance:
+    hostname: peer1

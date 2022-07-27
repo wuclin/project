@@ -1,0 +1,15 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: cluster
+
+eureka:
+  server:
+    enable-self-preservation: false
+  instance:
+    hostname: peer1
+  client:
+    service-url:
+      defaultZone: http://peer2:8083/eureka/

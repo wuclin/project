@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SpRedis/SpRedis.iml" filepath="$PROJECT_DIR$/SpRedis/SpRedis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jRedis/jRedis.iml" filepath="$PROJECT_DIR$/jRedis/jRedis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbpredis/sbpredis.iml" filepath="$PROJECT_DIR$/sbpredis/sbpredis.iml" />
+    </modules>
+  </component>
+</project>

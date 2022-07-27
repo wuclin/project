@@ -1,0 +1,13 @@
+server:
+  port: 2222
+spring:
+  application:
+    name: feign
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8001/eureka/,http://peer2:8002/eureka/,http://peer3:8003/eureka/
+logging:
+  level:
+    com.example.feignconsumer2222.service.UserService: debug #

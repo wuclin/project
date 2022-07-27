@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SpRedis:war">
+    <output-path>$PROJECT_DIR$/SpRedis/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>SpRedis</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="SpRedis.war">
+      <element id="artifact" artifact-name="SpRedis:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://rm-wz910vtcmfgjxqe3nlo.mysql.rds.aliyuncs.com:3306/r7app
+    username: r7account
+    password: woaijye123--
+
+
+mybatis:
+  mapper-location: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.kcsj.demo.entity
+  configuration:
+    mapUnderscoreToCamelCase: true

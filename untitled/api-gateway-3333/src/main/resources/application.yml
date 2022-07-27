@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: after_route
+          uri: lb://PROVIDER
+          predicates: #以下列出大部分的断言
+            - Path=/searchName
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8001/eureka/,http://peer2:8002/eureka/,http://peer3:8003/eureka/
+server:
+  port: 3333

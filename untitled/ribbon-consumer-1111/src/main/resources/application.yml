@@ -1,0 +1,13 @@
+server:
+  port: 1111
+spring:
+  application:
+    name: ribbon
+
+eureka:
+  instance:
+    prefer-ip-address: true   #这个配置会使鼠标放在注册中心的服务上时显示ip地址
+  client:
+    service-url:
+      defaultZone: http://peer1:8001/eureka/,http://peer2:8002/eureka/,http://peer3:8003/eureka/
+

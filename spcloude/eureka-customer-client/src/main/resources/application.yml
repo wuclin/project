@@ -1,0 +1,12 @@
+server:
+  port: 7002
+
+spring:
+  application:
+    name: customer
+
+eureka:
+  client:
+    service-url:
+     #defaultZone: http://localhost:8081/eureka 这里是使用单机
+     defaultZone: http://peer1:8082/eureka/,http://peer2:8083/eureka/

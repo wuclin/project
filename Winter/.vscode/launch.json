@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - oneplus",
+            "request": "launch",
+            "mainClass": "oneplus",
+            "projectName": "Winter_25bc5954"
+        }
+    ]
+}

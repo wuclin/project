@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         https://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/mvc
+         https://www.springframework.org/schema/mvc/spring-mvc.xsd
+         http://mybatis.org/schema/mybatis-spring
+         http://mybatis.org/schema/mybatis-spring.xsd
+         http://www.springframework.org/schema/cache
+         http://www.springframework.org/schema/cache/spring-cache.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd
+        ">
+
+    <tx:annotation-driven/>
+
+    <!--强制使用cglib动态代理，记得要引入依赖和命名空间-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <context:component-scan base-package="com">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--
+    这个是没有配置连接池的
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/store?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT&amp;"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>-->
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/store?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT&amp;allowMultiQueries=true&amp;"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+        <property name="autoCommit" value="false"/>
+        <property name="connectionTimeout" value="30000"/>
+        <property name="idleTimeout" value="30000"/>
+        <property name="maximumPoolSize" value="10"/>
+        <property name="maxLifetime" value="1800000"/>
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatiscfg.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <mybatis:scan base-package="com.Dao"/>
+
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最大空闲数 -->
+        <property name="maxIdle" value="50" />
+        <!-- 最大连接数 -->
+        <property name="maxTotal" value="100" />
+        <!-- 最大等待时间 -->
+        <property name="maxWaitMillis" value="20000" />
+    </bean>
+
+    <bean id="connectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="127.0.0.1" />
+        <property name="port" value="6379" />
+        <!--<property name="password" value="password"/> -->
+        <property name="poolConfig" ref="poolConfig" />
+    </bean>
+    <bean id="jdkSerializationRedisSerializer"
+          class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+
+    <bean id="stringRedisSerializer"
+          class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="keySerializer" ref="stringRedisSerializer" />
+        <property name="valueSerializer" ref="jdkSerializationRedisSerializer" />
+    </bean>
+
+    <!--使用注解驱动，其中属性cache-manager默认值为cacheManager, 所以如果你的缓存管理器名称也是cacheManager则无需重新定义 -->
+<!--
+注意这里有两个cache注解，只能屏蔽一个来使用，不能使用两个
+    <cache:annotation-driven cache-manager="redisCacheManager" />
+-->
+    <!-- 定义缓存管理器，如果你使用id="cacheManager"，则驱动不需要显式配置cache-manager属性 -->
+    <bean id="redisCacheManager"
+          class="org.springframework.data.redis.cache.RedisCacheManager">
+        <!--通过构造方法注入RedisTemplate -->
+        <constructor-arg index="0" ref="redisTemplate" />
+        <!-- 定义默认超时时间，单位秒 -->
+        <property name="defaultExpiration" value="120" />
+        <!--缓存管理器名称 -->
+        <property name="cacheNames">
+            <list>
+                <value>redisCacheManager</value>
+            </list>
+        </property>
+    </bean>
+
+    <cache:annotation-driven cache-manager="ehCacheManger" />
+    <bean id="ehCacheManger"
+          class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcache"/>
+    </bean>
+
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <constructor-arg name="executorType" value="BATCH"/>
+    </bean>
+
+</beans>
